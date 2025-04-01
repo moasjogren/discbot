@@ -12,7 +12,7 @@ client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   cron.schedule(
-    "30 17 * * 0-4",
+    "30 16 * * 0-4",
     () => {
       sendPoll();
     },
@@ -29,15 +29,24 @@ function sendPoll() {
   channel
     .send(
       "📊 **Morgondagens arbetsstatus** 📊\n" +
-        "Reagera med en emoji för att ange din status:\n\n" +
+        "Reagera med en emoji:\n\n" +
         "✅ – Jag kommer att jobba i skolan\n" +
-        "🏠 – Jag kommer att jobba på distans\n" +
-        "" +
+        "🏠 – Jag kommer att jobba på distans\n\n" +
         "Om du inte kan närvara: Skriv ett meddelande i tråden i god tid 😊"
     )
-    .then((message) => {
-      message.react("✅");
-      message.react("🏠");
+    .then(async (message) => {
+      await message.react("✅");
+      await message.react("🏠");
+
+      // Skapa en tråd kopplad till omröstningen
+      const thread = await message.startThread({
+        name: "Frånvaroanmälan 📌",
+        autoArchiveDuration: 1440, // 24 timmar (kan ändras)
+        reason: "För användare att meddela om de inte kan närvara",
+      });
+
+      // Skicka ett välkomstmeddelande i tråden
+      thread.send("📌 **Skriv här om du inte kan närvara imorgon.**");
     })
     .catch(console.error);
 }
