@@ -12,7 +12,7 @@ client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   cron.schedule(
-    "40 10 * * 0-4",
+    "0 11 * * 0-4",
     () => {
       sendPoll();
     },
@@ -32,12 +32,12 @@ function sendPoll() {
         "Reagera med en emoji för att ange din status:\n\n" +
         "✅ – Jag kommer att jobba i skolan\n" +
         "🏠 – Jag kommer att jobba på distans\n" +
-        "❌ – Jag kommer inte att kunna jobba"
+        "" +
+        "Om du inte kan närvara, skriv ett meddelande i tråden i god tid 😊"
     )
     .then((message) => {
       message.react("✅");
       message.react("🏠");
-      message.react("❌");
     })
     .catch(console.error);
 }
