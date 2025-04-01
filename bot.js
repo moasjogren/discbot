@@ -12,7 +12,7 @@ client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   cron.schedule(
-    "40 11 * * 0-4",
+    "40 10 * * 0-4",
     () => {
       sendPoll();
     },
