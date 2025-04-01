@@ -12,7 +12,7 @@ client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   cron.schedule(
-    "0 11 * * 0-4",
+    "30 17 * * 0-4",
     () => {
       sendPoll();
     },
@@ -33,7 +33,7 @@ function sendPoll() {
         "✅ – Jag kommer att jobba i skolan\n" +
         "🏠 – Jag kommer att jobba på distans\n" +
         "" +
-        "Om du inte kan närvara, skriv ett meddelande i tråden i god tid 😊"
+        "Om du inte kan närvara: Skriv ett meddelande i tråden i god tid 😊"
     )
     .then((message) => {
       message.react("✅");
